@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const mongodb = require("../config/mongodb");
 
 module.exports.get = async (cb)=>{
@@ -11,4 +12,18 @@ module.exports.get = async (cb)=>{
         console.log(err);
     }
     return cb(movies);
+}
+
+
+module.exports.getByID = async (id,cb)=>{
+    console.log(id);
+    const collection = mongodb.getCollection("movies");
+    try{
+        var movie = await collection.findOne({_id:new ObjectId(id)});
+        console.log(movie);
+    }
+    catch(err){
+        console.log(err);
+    }
+    return cb(movie);
 }
