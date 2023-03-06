@@ -2,13 +2,12 @@ const { ObjectId } = require("mongodb");
 const mongodb = require("../config/mongodb");
 
 module.exports.getCinemas = async(id, cb)=>{
-    console.log(id);
+
     const collection = mongodb.getCollection("cinemas");
     try{
         var movies = await collection.find(
             { timings: { $elemMatch: { movie_id: id } } }
         ).toArray();
-        console.log(JSON.stringify(movies));
     }
     catch(err){
         console.log(err);
